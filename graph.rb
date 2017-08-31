@@ -18,20 +18,13 @@ def calc_y(x_pos)
   return x_pos ** 2
 end
 
-mouse_line = R_Line.new(0, 0, 20, 20)
+mouse_line = RLine.new(0, 0, 200, 200)
 
 update do
   mouse_x = get :mouse_x
   mouse_y = get :mouse_y
-  mouse_line.x2 = mouse_x
-  mouse_line.y2 = mouse_y
-  q = Quad.new(
-  x1: 225, y1: 25,
-  x2: 350, y2: 50,
-  x3: 375, y3: 125,
-  x4: 275, y4: 125,
-  color: ['yellow', '#ff8c00', [0, 0, 0, 0], 'maroon']
-)
+  mouse_line.x2 = 20
+  mouse_line.y2 = 20
 end
 
 show
