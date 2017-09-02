@@ -5,9 +5,11 @@ class String
 end
 
 class Equation
+
   @@precedence = ["^", "/", "*", "+", "-"]
 
-  attr_accessor :eq, :precision
+  attr_accessor :precision
+  attr_reader :eq
 
   def initialize(eq, precision = 0.1)
     @eq, @precision = eq, precision
@@ -77,6 +79,3 @@ class Equation
     return postfix_stack.last
   end
 end
-
-e = Equation.new("(5 * x + 4) / (2 * x)")
-puts e.calc_y(9)
