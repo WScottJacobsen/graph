@@ -22,6 +22,6 @@ class Line
   end
 
   def to_s
-    puts "{[#{@p1.x}, #{@p1.y}], [#{@p2.x}, #{@p2.y}]}"
+    "{[#{@p1.x}, #{@p1.y}], [#{@p2.x}, #{@p2.y}]}"
   end
 end

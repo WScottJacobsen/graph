@@ -8,12 +8,13 @@ class Equation
 
   @@precedence = ["^", "/", "*", "+", "-"]
 
-  attr_accessor :precision
+  attr_accessor :precision, :color
   attr_reader :eq
 
-  def initialize(eq, precision = 0.1)
+  def initialize(eq, precision = 2, c = Gosu::Color.new(255, rand(0..255), rand(0..255), rand(0..255)))
     @eq, @precision = eq, precision
     @parsed_eq = parse_eq(eq)
+    @color = c
   end
 
   def parse_eq(eq)
@@ -54,6 +55,7 @@ class Equation
     substituted.map! {|n| n.is_a?(Numeric) ? n : n.is_numeric? ? n.to_f : n}
     postfix_stack = []
     answer = 0
+    odd_den = nil
     substituted.each do |val|
       case val
       when Numeric
@@ -61,6 +63,9 @@ class Equation
       else
         operand_2 = postfix_stack.pop
         operand_1 = postfix_stack.pop
+        if(val != "^")
+          odd_den = nil
+        end
         case val
         when "+"
           answer = operand_1 + operand_2
@@ -69,9 +74,16 @@ class Equation
         when "*"
           answer = operand_1 * operand_2
         when "/"
+          odd_den = operand_2 % 2 == 1
           answer = operand_1 / operand_2
         when "^"
           answer = operand_1 ** operand_2
+          if(odd_den && operand_1 < 0)
+            answer = answer.real * 2
+          elsif(odd_den != nil && operand_1 < 0)
+            raise "Imaginary Number"
+          end
+          odd_den = nil
         end
         postfix_stack << answer
       end
