@@ -7,7 +7,7 @@ end
 class Equation
   @@precedence = ["^", "/", "*", "+", "-"]
 
-  attr_accessor :eq
+  attr_accessor :eq, :precision
 
   def initialize(eq, precision = 0.1)
     @eq, @precision = eq, precision
