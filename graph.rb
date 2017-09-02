@@ -16,9 +16,11 @@ class Graph < Gosu::Window
   end
 
   def update
-    x = @window.min_x
-    until x >= @window.max_x
-      x += 1
+    @eqs.each do |eq|
+      x = @window.min_x
+      until x >= @window.max_x
+        x += 1
+      end
     end
   end
 
